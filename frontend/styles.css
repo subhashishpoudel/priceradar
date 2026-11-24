@@ -1,0 +1,103 @@
+/* ============================================================
+   Section 1: Colors
+   Light colors first, then dark mode values. Everything else in
+   this file uses these variables, so changing a color here
+   changes it everywhere.
+   ============================================================ */
+:root{
+  --bg:#f1f4f9; --card:#ffffff; --text:#1b2433; --muted:#6b7a90;
+  --line:#e3e8f0; --accent:#2563eb; --good:#15803d; --good-bg:#e4f6ea;
+  --warn:#a16207; --warn-bg:#fdf3d7; --bad:#b42318; --bad-bg:#fde8e6;
+  --side:#111a2b; --side-text:#aab6c9; --side-active:#1d2a42;
+}
+:root[data-theme="dark"]{
+  --bg:#0c1220; --card:#141d30; --text:#e8edf6; --muted:#8c9ab0;
+  --line:#243049; --accent:#5b8cff; --good:#5fd38a; --good-bg:#12301f;
+  --warn:#f2c14e; --warn-bg:#3a2f0f; --bad:#ff8a80; --bad-bg:#3b1816;
+  --side:#0a0f1b; --side-text:#8c9ab0; --side-active:#18233a;
+}
+
+
+/* ============================================================
+   Section 2: Page and layout
+   Two columns: dark sidebar on the left, content on the right.
+   ============================================================ */
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;
+  background:var(--bg);color:var(--text);font-size:15px}
+#app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}
+.main{padding:0 28px 40px;min-width:0}
+
+
+/* ============================================================
+   Section 3: Sidebar
+   ============================================================ */
+.side{background:var(--side);color:var(--side-text);padding:18px 14px;
+  display:flex;flex-direction:column;gap:4px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:600;
+  font-size:18px;padding:4px 8px 18px}
+.logo{width:32px;height:32px;border-radius:9px;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-weight:700}
+.nav{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+  cursor:pointer;border:0;background:none;color:inherit;font:inherit;text-align:left;width:100%}
+.nav:hover{background:var(--side-active)}
+.nav.on{background:var(--side-active);color:#fff;box-shadow:inset 3px 0 0 var(--accent)}
+
+
+/* ============================================================
+   Section 4: Top bar and buttons
+   ============================================================ */
+.top{display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:24px;gap:12px}
+.crumb{color:var(--muted)} .crumb b{color:var(--text);font-weight:500}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--text);
+  padding:8px 14px;border-radius:10px;cursor:pointer;font:inherit}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.dot.ok{background:var(--good)} .dot.bad{background:var(--bad)}
+
+
+/* ============================================================
+   Section 5: Headings and cards
+   ============================================================ */
+h1{font-size:30px;font-weight:600;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.label{color:var(--muted);font-size:13px}
+.big{font-size:34px;font-weight:600;margin:6px 0 4px}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px}
+.head h2{margin:0;font-size:18px;font-weight:600}
+
+
+/* ============================================================
+   Section 6: Badges
+   good = green, warn = yellow, bad = red, mute = gray
+   ============================================================ */
+.badge{display:inline-block;padding:2px 9px;border-radius:8px;font-size:12px;font-weight:500}
+.b-good{background:var(--good-bg);color:var(--good)}
+.b-warn{background:var(--warn-bg);color:var(--warn)}
+.b-bad{background:var(--bad-bg);color:var(--bad)}
+.b-mute{background:var(--bg);color:var(--muted)}
+
+
+/* ============================================================
+   Section 7: Table, notes, empty state, warning box
+   ============================================================ */
+table{width:100%;border-collapse:collapse}
+th{text-align:left;color:var(--muted);font-weight:500;font-size:13px;padding:8px 10px}
+td{padding:12px 10px;border-top:1px solid var(--line)}
+.note{color:var(--muted);font-size:13px;margin-top:12px}
+.empty{text-align:center;padding:50px 10px;color:var(--muted)}
+.empty b{display:block;color:var(--text);font-size:18px;margin-bottom:6px}
+.warnbox{border:1px solid var(--warn);background:var(--warn-bg);color:var(--warn);
+  padding:10px 14px;border-radius:12px;font-size:13px;margin-top:14px}
+
+
+/* ============================================================
+   Section 8: Small screens
+   On a narrow screen the sidebar becomes a row on top.
+   ============================================================ */
+@media(max-width:760px){#app{grid-template-columns:1fr}.side{flex-direction:row;overflow:auto}}

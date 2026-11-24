@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<!-- ============================================================
+     Cell 1: Head
+     Page title, the stylesheet, and app.js. "defer" makes the
+     browser wait until the page is ready before running app.js.
+     ============================================================ -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PriceRadar</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ============================================================
+         Cell 2: Sidebar
+         Dark column on the left. app.js switches the page when a
+         button is clicked (data-page must match page-<name> below).
+         ============================================================ -->
+    <aside class="side">
+      <div class="brand"><div class="logo">P</div>PriceRadar</div>
+      <button class="nav on" data-page="overview"><span style="width:20px;text-align:center">&#x25A6;</span>Overview</button>
+      <button class="nav" data-page="products"><span style="width:20px;text-align:center">&#x25A3;</span>Products</button>
+      <button class="nav" data-page="stores"><span style="width:20px;text-align:center">&#x2302;</span>Stores</button>
+      <button class="nav" data-page="history"><span style="width:20px;text-align:center">&#x2197;</span>Price history</button>
+      <button class="nav" data-page="alerts"><span style="width:20px;text-align:center">&#x2691;</span>Alerts</button>
+      <button class="nav" data-page="search"><span style="width:20px;text-align:center">&#x2315;</span>Search</button>
+    </aside>
+
+    <div class="main">
+
+      <!-- ============================================================
+           Cell 3: Top bar
+           Breadcrumb, API status light (from /health), and the
+           dark-mode button. app.js updates the crumb and the light.
+           ============================================================ -->
+      <div class="top">
+        <div class="crumb">Workspace / <b id="crumb">Overview</b></div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="status"><span class="dot bad" id="dot"></span><span id="status-text">API offline</span></div>
+          <button class="btn" id="theme-btn">Dark / light</button>
+        </div>
+      </div>
+
+      <div id="page-overview" data-label="Overview">
+        <h1>Today's price radar</h1>
+        <p class="sub">Live counts from your database, plus a sample of the price table.</p>
+
+        <!-- ============================================================
+             Cell 4: Stat cards
+             One card per number from /stats. app.js fills the
+             data-stat boxes. If the API is off they show a dash.
+             No made-up trends: only real counts.
+             ============================================================ -->
+        <div class="grid">
+          <div class="card">
+            <div class="label">Stores</div>
+            <div class="big" data-stat="stores">&mdash;</div>
+            <span class="badge b-mute">no data</span>
+          </div>
+          <div class="card">
+            <div class="label">Products</div>
+            <div class="big" data-stat="products">&mdash;</div>
+            <span class="badge b-mute">no data</span>
+          </div>
+          <div class="card">
+            <div class="label">Listings</div>
+            <div class="big" data-stat="listings">&mdash;</div>
+            <span class="badge b-mute">no data</span>
+          </div>
+          <div class="card">
+            <div class="label">Price snapshots</div>
+            <div class="big" data-stat="snapshots">&mdash;</div>
+            <span class="badge b-mute">no data</span>
+          </div>
+        </div>
+
+        <!-- ============================================================
+             Cell 5: Sample price table
+             Placeholder rows so you can judge the look. They are NOT
+             real data and are labelled as sample. Later this reads
+             from the API.
+             Rule 8: a second-hand listing from a person gets a warning.
+             ============================================================ -->
+        <div class="card">
+          <div class="head"><h2>Cheapest by phone</h2><span class="badge b-mute">Sample data</span></div>
+          <table>
+            <tr><th>Phone</th><th>Cheapest store</th><th>Price</th><th>Check</th></tr>
+            <tr>
+              <td>Sample Phone A 128GB</td><td>Sample Store</td><td>Rs 45,000</td>
+              <td><span class="badge b-good">Real discount 12%</span></td>
+            </tr>
+            <tr>
+              <td>Sample Phone B 256GB</td><td>Sample Store</td><td>Rs 62,000</td>
+              <td><span class="badge b-warn">Fake-sale check</span></td>
+            </tr>
+            <tr>
+              <td>Sample Phone C 64GB (used)</td><td>Individual seller</td><td>Rs 18,000</td>
+              <td><span class="badge b-bad">Unverified</span></td>
+            </tr>
+          </table>
+          <div class="warnbox">Individual seller: unverified, possibly not safe, not an organization.</div>
+          <div class="note">Profit numbers, when added, are estimates and will be labelled that way.</div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           Cell 6: Other pages
+           One block per sidebar item. Only Overview has content for
+           now; the others show a friendly empty state. Each id is
+           "page-<name>" so app.js can show and hide it.
+           ============================================================ -->
+      <div id="page-products" data-label="Products" hidden>
+        <h1>Products</h1>
+        <div class="card empty"><b>Products is coming soon</b>This page will fill in once the crawler and endpoints are ready.</div>
+      </div>
+      <div id="page-stores" data-label="Stores" hidden>
+        <h1>Stores</h1>
+        <div class="card empty"><b>Stores is coming soon</b>This page will fill in once the crawler and endpoints are ready.</div>
+      </div>
+      <div id="page-history" data-label="Price history" hidden>
+        <h1>Price history</h1>
+        <div class="card empty"><b>Price history is coming soon</b>This page will fill in once the crawler and endpoints are ready.</div>
+      </div>
+      <div id="page-alerts" data-label="Alerts" hidden>
+        <h1>Alerts</h1>
+        <div class="card empty"><b>Alerts is coming soon</b>This page will fill in once the crawler and endpoints are ready.</div>
+      </div>
+
+      <!-- ============================================================
+           Cell 7: Search page
+           A search box that calls GET /search (SearXNG through the
+           backend). app.js Cell 5b handles the submit and fills
+           #search-out with one card per result.
+           ============================================================ -->
+      <div id="page-search" data-label="Search" hidden>
+        <h1>Search</h1>
+        <p class="sub">Searches the web, scrapes the top pages with Firecrawl and shows the prices found. It can take up to a minute.</p>
+        <form class="card" id="search-form" style="display:flex;gap:8px">
+          <input id="search-q" type="search" placeholder="e.g. iphone 13 price nepal" minlength="2" required
+                 style="flex:1;padding:8px 10px;border:1px solid rgba(128,128,128,.4);border-radius:8px;background:transparent;color:inherit;font:inherit">
+          <button class="btn" type="submit">Search</button>
+        </form>
+        <div id="search-out"></div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

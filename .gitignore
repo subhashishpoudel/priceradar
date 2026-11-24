@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Secrets and local config
+.env
+.env.*
+
+# Local data and logs
+*.db
+*.log

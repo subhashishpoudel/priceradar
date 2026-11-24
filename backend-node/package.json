@@ -1,0 +1,16 @@
+{
+  "name": "priceradar-backend",
+  "version": "1.0.0",
+  "description": "PriceRadar API in Node.js (no dependencies)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db": "node database.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
